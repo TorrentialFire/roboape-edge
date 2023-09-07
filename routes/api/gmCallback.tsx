@@ -32,13 +32,14 @@ export const handler: Handlers = {
         if (reqBody.name !== BOT_NAME) {
             const response = getResponseForMessage(reqBody);
             if (response) {
-                const botID = await getBotIdForMessage(reqBody);
+                // const botID = await getBotIdForMessage(reqBody);
                 // Post to groupme
-                if (!botID) {
-                    throw new Error("No Bot ID provided")
-                }
+                // if (!botID) {
+                //     throw new Error("No Bot ID provided")
+                // }
                 // Go ahead and post message to group using provided bot ID
                 try {
+                    const botID = Deno.env.get("BOT_ID")!;
                     await postBotMessage(response, botID);
                 } catch (error) {
                     throw new Error("Failure while trying to post to GroupMe")
